@@ -9,59 +9,45 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <script type="text/javascript" src="/node_modules/jquery/dist/jquery.js"></script>
-    <script type="text/javascript" src="/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
-
     <title>Counter</title>
+    <script src="js/index.js"></script>
 
 
-</head> 
-
-<script type="text/javascript">
-    $(function(){
-        $('.dropdown-toggle').dropdown();
-    });
-</script>
+</head>
 
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">Dropdown
-                    Example
+            <div class="dropdown btn-block">
+                <button class="btn-block btn-default dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">
+                    Super Mario 64
                     <span class="caret"></span></button>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">HTML</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">CSS</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">JavaScript</a></li>
-                    <li role="presentation" class="divider"></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">About Us</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Bloodborne</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Sunshine</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Risk of Rain 2</a></li>
                 </ul>
             </div>
         </div>
+
         <div class="row border">
             <div class="col border">
-                <p class="text-danger align-middle ">666,420</p>
+                <p class="text-danger text-center align-middle">666,420</p>
             </div>
-            <div class="float-right">
-                <button type="button" class="btn btn-outline-danger">+</button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                00:00:00
-            </div>
-            <div class="float-right">
-                <button type="button" class="btn btn-outline-success">-</button>
+            <div class="float-right"> <!--Maybe not necessary-->
+                <div class = "btn-group-vertical">
+                    <button id="plusBtn" type="button" class="btn btn-outline-danger" onclick="plusButtonClicked()">+</button>
+                    <button id="minusBtn" type="button" class="btn btn-outline-success" onclick="minusButtonClicked()">-</button>
+                </div>
             </div>
         </div>
 
+        <div class = "row">
+            00:00:00 TODO
+        </div>
+
     </div>
-    <script>
-        $(document).ready(function () {
-            $(".dropdown-toggle").dropdown();
-        });
-    </script>
+    
 </body>
 
 </html>
