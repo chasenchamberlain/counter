@@ -5,21 +5,19 @@ const Store = require('electron-store');
 
 
 const schema = {
-  game:{
-    name :{ type:'string'},
-    count:{ type: 'number'}
+  games:{
+    type: 'array'
   }
 };
 
 const store = new Store({schema});
 console.log(app.getPath('userData'));
 console.log(store.size);
-console.log(store.set({game:{name:'test', count: 666}}));
-console.log(store.set({game:{name:'test 2', count: 420}}));
+// store.reset();
+// var testArray = [{name: "sm64", count: 0}, {name: "wow", count: 666}, ];
 
-console.log(store.size);
-console.log(store.get('game'));
-
+// store.set(testArray);
+// console.log(store.size);
 function createWindow() {
   const win = new BrowserWindow({
     width: 400,
@@ -29,7 +27,7 @@ function createWindow() {
     }
   })
   win.loadFile('app/index.html')
-  win.webContents.openDevTools()
+  // win.webContents.openDevTools()
 }
 
 
