@@ -1,16 +1,16 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path');
 const fs = require('fs');
 const Store = require('electron-store');
 
 
 const schema = {
-  games:{
+  games: {
     type: 'array'
   }
 };
 
-const store = new Store({schema});
+const store = new Store({ schema });
 console.log(app.getPath('userData'));
 console.log(store.size);
 // store.reset();
@@ -18,6 +18,8 @@ console.log(store.size);
 
 // store.set(testArray);
 // console.log(store.size);
+store.clear();
+
 function createWindow() {
   const win = new BrowserWindow({
     width: 400,
@@ -27,12 +29,34 @@ function createWindow() {
     }
   })
   win.loadFile('app/index.html')
-  // win.webContents.openDevTools()
+  win.webContents.openDevTools()
 }
 
+function createStartWindow() {
+  const win = new BrowserWindow({
+    width: 400,
+    height: 500,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  })
+  win.webContents.openDevTools()
+  win.loadFile('app/js/nogame.html')
+}
+
+ipcMain.on('form-submission', function (event, gameName, gameCount) {
+  console.log("this is the gameName from the form ->", gameName)
+  console.log("this is the gameName from the form ->", gameCount)
+});
 
 
-app.whenReady().then(createWindow)
+if (store.size === 0) {
+  app.whenReady().then(createStartWindow)
+}
+else {
+  app.whenReady().then(createWindow)
+}
+
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
