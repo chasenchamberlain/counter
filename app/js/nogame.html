@@ -10,28 +10,37 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <title>Counter</title>
-    <script src="index.js"></script>
+    <!-- <script src="index.js"></script> -->
 
 
 </head>
 
 <body>
     <div class="container-fluid">
-        <form name="ipcForm" onsubmit="JavaScript:sendForm(event)">
+        <form name="ipcForm" id="ipcForm" onsubmit="JavaScript:sendForm(event)">
             <div class="form group">
                 <label for="gameTileInput">Game Name</label>
                 <input class="form-control" id="gameTileInput" placeholder="Super Mario 64">
-            </div>
-            <div class="form group">
-                <label for="countInput">Count</label>
-                <input type="number" id="countInput" class="form-control" placeholder="420">
-                <small id="countDisclaimer" class="form-text text-muted">Usually 0</small>
-            </div>
-            <button type="submit" class="btn btn-success btn-lg btn-block">Add New Game</button>
+            </div><br>
+            <button type="button" class="btn btn-primary btn-sm" onclick="addAnotherFormInput()">Add another
+                count</button>
+            <div id="wrappedDiv">
+                <div id="countInputDiv0" class="form-row">
+                    <div class="col">
+                        <label for="countTitle">Count Title</label>
+                        <input type="text" id="countTitle" class="form-control" placeholder="Deaths">
+                    </div>
+                    <div class="col">
+                        <label for="countInput">Starting Count</label>
+                        <input type="number" id="countInput" class="form-control" placeholder="420">
+                    </div>
+                </div><br>
+            </div><br>
+            <button type="submit" class="btn btn-outline-success btn-lg btn-block">Add New Game</button>
         </form>
-
     </div>
 
+    <script src="index.js"></script>
 
 </body>
 

@@ -3,7 +3,6 @@ const path = require('path');
 const fs = require('fs');
 const Store = require('electron-store');
 
-
 const schema = {
   games: {
     type: 'array'
@@ -40,7 +39,7 @@ function createStartWindow() {
       nodeIntegration: true
     }
   })
-  win.webContents.openDevTools()
+  // win.webContents.openDevTools()
   win.loadFile('app/js/nogame.html')
 }
 
