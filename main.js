@@ -39,7 +39,7 @@ function createStartWindow() {
       nodeIntegration: true
     }
   })
-  // win.webContents.openDevTools()
+  win.webContents.openDevTools()
   win.loadFile('app/js/nogame.html')
 }
 
