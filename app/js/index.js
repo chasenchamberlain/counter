@@ -1,5 +1,6 @@
 // const { $, jQuery } = require('jquery');
 var b = require('bootstrap');
+const { nodeName } = require('jquery');
 const ipcRenderer = require('electron').ipcRenderer;
 var games = [];
 // export for others scripts to use
@@ -36,12 +37,20 @@ function sendForm(event) {
 
 var inputCount = 0;
 function addAnotherFormInput() {
-    var original = document.getElementById('countInputDiv' + inputCount);
+    var original = document.getElementById('countInputDiv0');
     var clone = original.cloneNode(true);
     console.log({ clone });
     clone.id = "countInputDiv" + ++inputCount;
+
+    // Testing weird things.
+    let kids = clone.childNodes;
+    console.log("NUMBER===" + inputCount)
+    $(clone).find("#countTitle").attr("id", 'countTitle' + inputCount);
+    $(clone).find("#countInput").attr("id", 'countInput' + inputCount);
     original.parentNode.appendChild(clone);
-    console.log("I duplicated");
+    console.log("-------");
+    console.log(kids[1]);
+    console.log(kids[3]);
 }
 
 // $(function testing() {
