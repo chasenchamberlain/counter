@@ -15,6 +15,7 @@ function plusButtonClicked() {
     console.log("Plus clicked");
 }
 
+
 function minusButtonClicked() {
     console.log("Minus clicked");
 }
