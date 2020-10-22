@@ -2,6 +2,7 @@
 var b = require('bootstrap');
 const { nodeName } = require('jquery');
 const ipcRenderer = require('electron').ipcRenderer;
+// const { remote } = require('electron');
 var games = [];
 
 // this is what gives our cloned form inputs correct ids
@@ -23,13 +24,11 @@ function minusButtonClicked() {
 function sendForm(event) {
     event.preventDefault() // stop the form from submitting
     let gameName = document.getElementById("gameTileInput").value;
-    // TODO: get count title
 
     // example array what the data will look like
     // var testArray = [{name: "sm64", count: 0}, {name: "wow", count: 666}, ];
 
     // grab the goodies??
-    // var formCount = $('div.form-row').length - 1;
     for (var i = 0; i <= inputCount; i++) {
         let countInputTitle = document.getElementById("countTitle" + i).value;
         let countInputCount = document.getElementById("countInput" + i).value;
@@ -38,8 +37,8 @@ function sendForm(event) {
         games.push(count);
     }
     console.log({ games });
-    // let gameCount = document.getElementById("countInput").value;
-    // ipcRenderer.send('form-submission', gameName, gameCount)
+    ipcRenderer.send('form-submission', gameName, games)
+    // remote.getCurrentWindow().loadFile('app/index.html');
 }
 
 function addAnotherFormInput() {

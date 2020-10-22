@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain, remote } = require('electron')
 const path = require('path');
 const fs = require('fs');
 const Store = require('electron-store');
@@ -10,6 +10,7 @@ const schema = {
 };
 
 const store = new Store({ schema });
+var storeData = [];
 console.log(app.getPath('userData'));
 console.log(store.size);
 // store.reset();
@@ -43,20 +44,24 @@ function createStartWindow() {
   win.loadFile('app/js/nogame.html')
 }
 
-ipcMain.on('form-submission', function (event, gameName, gameCount) {
+ipcMain.on('form-submission', function (event, gameName, gameCounts) {
   console.log("this is the gameName from the form ->", gameName)
-  console.log("this is the gameName from the form ->", gameCount)
+  console.log("this is the counts from the form ->", gameCounts)
+
+  storeData = [{ name: gameName, counts: gameCounts }];
+  store.set(storeData);
+  console.log("storeData - " + { storeData });
+  console.log(store.size)
+  console.log(store.store);
+
+  // store.openInEditor();
+
+  // checkStore();
+
+
 });
 
-
-if (store.size === 0) {
-  app.whenReady().then(createStartWindow)
-}
-else {
-  app.whenReady().then(createWindow)
-}
-
-
+checkStore();
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
@@ -74,5 +79,13 @@ app.on('activate', () => {
   }
 })
 
+function checkStore() {
+  if (store.size === 0) {
+    app.whenReady().then(createStartWindow)
+  }
+  else {
+    app.whenReady().then(createWindow)
+  }
+}
   // In this file you can include the rest of your app's specific main process
   // code. You can also put them in separate files and require them here.
