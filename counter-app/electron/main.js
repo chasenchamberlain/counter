@@ -1,4 +1,5 @@
-const { app, BrowserWindow, ipcMain, remote } = require('electron')
+const { app, BrowserWindow, ipcMain, remote } = require('electron');
+const isDev = require('electron-is-dev');
 const path = require('path');
 const fs = require('fs');
 const Store = require('electron-store');
@@ -40,8 +41,10 @@ function createStartWindow() {
       nodeIntegration: true
     }
   })
-  win.webContents.openDevTools()
-  win.loadFile('app/js/nogame.html')
+  // win.webContents.openDevTools()
+
+  win.loadURL('http://localhost:3000/')
+  // win.loadFile('app/js/nogame.html')
 }
 
 ipcMain.on('form-submission', function (event, gameName, gameCounts) {

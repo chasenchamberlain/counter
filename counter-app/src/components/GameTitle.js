@@ -1,0 +1,35 @@
+import React from "react";
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import { makeStyles, Typography } from "@material-ui/core";
+import InputBase from '@material-ui/core/InputBase';
+
+const useStyles = makeStyles(theme => ({
+    input: {
+        height: theme.typography.h4.fontSize,
+        fontSize: theme.typography.h4.fontSize,
+        fontWeight: theme.typography.h4.fontWeight,
+        textAlign: "center",
+        align: "center",
+        '& input': {
+            textAlign: "center"
+        }
+    }
+}));
+
+export default function GameTitle() {
+    const classes = useStyles();
+    return (
+        <div>
+            <Paper elevation={2}>
+                <InputBase
+                    className={classes.input}
+                    required
+                    fullWidth='true'
+                    defaultValue="Game Name"
+                    inputProps={{ 'aria-label': 'naked' }}
+                />
+            </Paper>
+        </div>
+    );
+}
