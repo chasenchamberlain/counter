@@ -12,10 +12,10 @@ const useStyles = makeStyles(theme => ({
         height: theme.typography.h6.fontSize,
         fontSize: theme.typography.h6.fontSize,
         fontWeight: theme.typography.h6.fontWeight,
-        textAlign: "left",
-        align: "left",
+        textAlign: "center",
+        align: "center",
         '& input': {
-            textAlign: "left"
+            textAlign: "center"
         }
     },
     root: {
@@ -27,13 +27,13 @@ export default function CountData() {
     const classes = useStyles();
 
     return (
-        <Grid container
-            direction="row"
-            justify="space-evenly"
-            alignItems="baseline"
-            className={classes.root}
-        >
-            <Grid item>
+        <Paper className={classes.root}>
+            <Grid container
+                direction="row"
+                justify="space-evenly"
+                alignItems="baseline"
+                className={classes.root}
+            >
                 <InputBase
                     className={classes.input}
                     required
@@ -41,19 +41,21 @@ export default function CountData() {
                     defaultValue="Count Title"
                     inputProps={{ 'aria-label': 'naked' }}
                 />
-                <Typography>666</Typography>
+                <Grid item>
+                    <Typography>666</Typography>
+                </Grid>
+                <Grid item>
+                    <ButtonGroup
+                        orientation="vertical"
+                        color="primary"
+                        aria-label="vertical outlined primary button group"
+                    >
+                        <Button>+</Button>
+                        <Button>-</Button>
+                    </ButtonGroup>
+                </Grid>
             </Grid>
-            <Grid item>
-                <ButtonGroup
-                    orientation="vertical"
-                    color="primary"
-                    aria-label="vertical outlined primary button group"
-                >
-                    <Button>+</Button>
-                    <Button>-</Button>
-                </ButtonGroup>
-            </Grid>
-        </Grid>
+        </Paper>
     );
 
 }

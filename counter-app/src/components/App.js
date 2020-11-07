@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from 'react-dom';
-import { Link } from "react-router-dom";
 import 'fontsource-roboto';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -21,6 +20,10 @@ const useStyles = makeStyles((theme) => ({
       height: theme.spacing(16),
     },
   },
+  base: {
+    padding: 20,
+
+  }
 }));
 
 export default function SimplePaper() {

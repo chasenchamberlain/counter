@@ -14,14 +14,19 @@ const useStyles = makeStyles(theme => ({
         '& input': {
             textAlign: "center"
         }
+    },
+    base: {
+        padding: 10,
+
     }
 }));
 
 export default function GameTitle() {
     const classes = useStyles();
     return (
-        <div>
-            <Paper elevation={2}>
+        <div className={classes.base}>
+            <Paper elevation={2}
+                className={classes.base}>
                 <InputBase
                     className={classes.input}
                     required
