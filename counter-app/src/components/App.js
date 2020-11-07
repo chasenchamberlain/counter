@@ -8,6 +8,8 @@ import { makeStyles } from "@material-ui/core";
 import GameTitle from "./GameTitle";
 import CountData from "./CountData";
 import Container from '@material-ui/core/Container';
+import Divider from '@material-ui/core/Divider';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -32,6 +34,7 @@ export default function SimplePaper() {
   return (
     <Container>
       <GameTitle />
+      <Divider />
       <CountData />
     </Container>
   );

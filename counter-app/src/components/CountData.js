@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Typography from '@material-ui/core/Typography'
+import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles(theme => ({
     input: {
@@ -27,7 +28,7 @@ export default function CountData() {
     const classes = useStyles();
 
     return (
-        <Paper className={classes.root}>
+        // <Paper className={classes.root}>
             <Grid container
                 direction="row"
                 justify="space-evenly"
@@ -42,7 +43,7 @@ export default function CountData() {
                     inputProps={{ 'aria-label': 'naked' }}
                 />
                 <Grid item>
-                    <Typography>666</Typography>
+                    <Typography variant="h4">666</Typography>
                 </Grid>
                 <Grid item>
                     <ButtonGroup
@@ -55,7 +56,7 @@ export default function CountData() {
                     </ButtonGroup>
                 </Grid>
             </Grid>
-        </Paper>
+        // </Paper>
     );
 
 }

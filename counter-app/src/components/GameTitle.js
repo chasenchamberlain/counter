@@ -25,16 +25,13 @@ export default function GameTitle() {
     const classes = useStyles();
     return (
         <div className={classes.base}>
-            <Paper elevation={2}
-                className={classes.base}>
-                <InputBase
-                    className={classes.input}
-                    required
-                    fullWidth='true'
-                    defaultValue="Game Name"
-                    inputProps={{ 'aria-label': 'naked' }}
-                />
-            </Paper>
+            <InputBase
+                className={classes.input}
+                required
+                fullWidth='true'
+                defaultValue="Game Name"
+                inputProps={{ 'aria-label': 'naked' }}
+            />
         </div>
     );
 }
