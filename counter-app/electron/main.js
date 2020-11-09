@@ -58,7 +58,6 @@ ipcMain.on('form-submission', function (event, gameName, gameCounts) {
   console.log(store.store);
 
   // store.openInEditor();
-
   // checkStore();
 
 
