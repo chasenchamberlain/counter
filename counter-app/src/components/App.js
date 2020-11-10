@@ -34,7 +34,6 @@ export default function SimplePaper() {
     setCount(count - 1);
   }
 
-  let hideMeNot = true;
   let hideMe = false;
 
   return (

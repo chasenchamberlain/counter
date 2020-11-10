@@ -29,22 +29,8 @@ function createWindow() {
       nodeIntegration: true
     }
   })
-  win.loadFile('app/index.html')
-  win.webContents.openDevTools()
-}
-
-function createStartWindow() {
-  const win = new BrowserWindow({
-    width: 400,
-    height: 500,
-    webPreferences: {
-      nodeIntegration: true
-    }
-  })
-  // win.webContents.openDevTools()
-
   win.loadURL('http://localhost:3000/')
-  // win.loadFile('app/js/nogame.html')
+  // win.webContents.openDevTools()
 }
 
 ipcMain.on('form-submission', function (event, gameName, gameCounts) {
@@ -82,12 +68,7 @@ app.on('activate', () => {
 })
 
 function checkStore() {
-  if (store.size === 0) {
-    app.whenReady().then(createStartWindow)
-  }
-  else {
-    app.whenReady().then(createWindow)
-  }
+  createWindow();
 }
   // In this file you can include the rest of your app's specific main process
   // code. You can also put them in separate files and require them here.

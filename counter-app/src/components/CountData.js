@@ -10,6 +10,8 @@ import Divider from "@material-ui/core/Divider";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 
+const ipcRenderer = require('electron').ipcRenderer;
+
 const useStyles = makeStyles((theme) => ({
   input: {
     height: theme.typography.h6.fontSize,
