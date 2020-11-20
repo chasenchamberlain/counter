@@ -49,7 +49,8 @@ ipcMain.on('form-submission', function (event, gameName, gameCounts) {
 
 });
 
-checkStore();
+app.whenReady().then(createWindow);
+
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
