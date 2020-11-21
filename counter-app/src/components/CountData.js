@@ -10,8 +10,7 @@ import Divider from "@material-ui/core/Divider";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 
-
-// const ipcRenderer = require('electron').ipcRenderer;
+const { ipcRenderer } = window.require("electron");
 
 const useStyles = makeStyles((theme) => ({
     input: {
@@ -39,11 +38,27 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+
 export default function CountData(props) {
     const classes = useStyles();
     const [count, setCount] = useState(0);
     const [countTitleString, setCountTitleString] = useState("Count Title");
-    // console.log({ props });
+
+
+    function sendData() {
+        ipcRenderer.send('form-submission', countTitleString, count, props.count);
+    }
+
+    function updateCount(countStringNum) {
+        (countStringNum === "") ? setCount(0) : setCount(parseInt(countStringNum));
+        sendData()
+    }
+
+    function updateCountString(countStringTitle) {
+        setCountTitleString(countStringTitle)
+        sendData()
+    }
+
     return (
         <Paper className={classes.root}>
             <Grid
@@ -59,13 +74,14 @@ export default function CountData(props) {
                     id={"countTitle" + props.count}
                     fullWidth="true"
                     value={countTitleString}
-                    onChange={(event) => setCountTitleString(event.target.value)}
+                    onChange={(event) => updateCountString(event.target.value)}
                     inputProps={{ "aria-label": "naked" }}
                 />
                 <InputBase
                     className={classes.countInput}
                     id={"countNum" + props.count}
                     value={count}
+                    onChange={(event) => updateCount(event.target.value)}
                     inputProps={{ "aria-label": "naked" }} />
                 <ButtonGroup
                     orientation="vertical"
@@ -74,6 +90,7 @@ export default function CountData(props) {
                 >
                     <Button onClick={() => setCount(count + 1)}>+</Button>
                     <Button onClick={() => setCount(count - 1)}>-</Button>
+                    <Button onClick={() => sendData()}>Test</Button>
                 </ButtonGroup>
             </Grid>
             <>

@@ -12,8 +12,8 @@ const schema = {
 
 const store = new Store({ schema });
 var storeData = [];
-console.log(app.getPath('userData'));
-console.log(store.size);
+// console.log(app.getPath('userData'));
+// console.log(store.size);
 // store.reset();
 // var testArray = [{name: "sm64", count: 0}, {name: "wow", count: 666}, ];
 
@@ -33,15 +33,16 @@ function createWindow() {
   // win.webContents.openDevTools()
 }
 
-ipcMain.on('form-submission', function (event, gameName, gameCounts) {
+ipcMain.on('form-submission', function (event, gameName, gameCounts, index) {
   console.log("this is the gameName from the form ->", gameName)
   console.log("this is the counts from the form ->", gameCounts)
+  console.log("index ->", index)
 
-  storeData = [{ name: gameName, counts: gameCounts }];
-  store.set(storeData);
-  console.log("storeData - " + { storeData });
-  console.log(store.size)
-  console.log(store.store);
+  // storeData = [{ name: gameName, counts: gameCounts }];
+  // store.set(storeData);
+  // console.log("storeData - " + { storeData });
+  // console.log(store.size)
+  // console.log(store.store);
 
   // store.openInEditor();
   // checkStore();
