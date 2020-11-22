@@ -1,16 +1,21 @@
-import { React, useState, Fragment } from "react";
+import { React, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
-import InputBase from "@material-ui/core/InputBase";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
-const { ipcRenderer } = window.require("electron");
+
+// const { ipcRenderer } = window.require("electron");
 
 const useStyles = makeStyles((theme) => ({
     input: {
@@ -22,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
         "& input": {
             textAlign: "left",
         },
+        padding: 2,
     },
     root: {
         padding: 15,
@@ -41,48 +47,90 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CountData(props) {
     const classes = useStyles();
+    const [open, setOpen] = useState(false);
     const [count, setCount] = useState(0);
-    const [countTitleString, setCountTitleString] = useState("Count Title");
+    const [countTitle, setCountTitle] = useState("Count Title");
+    const [countDialog, setCountDialog] = useState(0);
+    const [countTitleDialog, setCountTitleDialog] = useState("")
 
+    useEffect(() => {
+        props.sendCount(count);
+        props.sendCountTitle(countTitle);
+    }, [count, countTitle])
 
-    function sendData() {
-        ipcRenderer.send('form-submission', countTitleString, count, props.count);
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = (cancelOrSubmit) => {
+        if (cancelOrSubmit) {
+            setCount(countDialog);
+            setCountTitle(countTitleDialog);
+        }
+        setOpen(false);
+    };
+
+    const getCountFromDialog = (countFromDialog) => {
+        (countFromDialog === "") ? setCountDialog(0) : setCountDialog(parseInt(countFromDialog));
     }
 
-    function updateCount(countStringNum) {
-        (countStringNum === "") ? setCount(0) : setCount(parseInt(countStringNum));
-        sendData()
-    }
-
-    function updateCountString(countStringTitle) {
-        setCountTitleString(countStringTitle)
-        sendData()
+    const getCountTitleFromDialog = (countTitleFromDialog) => {
+        (countTitleFromDialog === "") ? setCountTitleDialog("Count Title") : setCountTitleDialog(countTitleFromDialog);
     }
 
     return (
         <Paper className={classes.root}>
             <Grid
                 container
+                className={classes.root}
                 direction="row"
                 justify="space-evenly"
                 alignItems="baseline"
-                className={classes.root}
             >
-                <InputBase
-                    className={classes.input}
-                    required
-                    id={"countTitle" + props.count}
-                    fullWidth="true"
-                    value={countTitleString}
-                    onChange={(event) => updateCountString(event.target.value)}
-                    inputProps={{ "aria-label": "naked" }}
-                />
-                <InputBase
-                    className={classes.countInput}
-                    id={"countNum" + props.count}
-                    value={count}
-                    onChange={(event) => updateCount(event.target.value)}
-                    inputProps={{ "aria-label": "naked" }} />
+                <IconButton onClick={handleClickOpen}>
+                    <EditOutlinedIcon />
+                </IconButton>
+
+                <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                    <DialogTitle id="form-dialog-title">Edit count title/count </DialogTitle>
+                    <DialogContent>
+                        <TextField
+                            name="countTitleDialog"
+                            autoFocus
+                            onChange={(event) => getCountTitleFromDialog(event.target.value)}
+                            margin="dense"
+                            id="countTitleDialog"
+                            label="Count Title"
+                            placeholder={countTitle}
+                            fullWidth
+                        />
+                        <TextField
+                            name="countDialog"
+                            onChange={(event) => getCountFromDialog(event.target.value)}
+                            margin="dense"
+                            id="countDialog"
+                            label="Count"
+                            placeholder={count.toString()}
+                            fullWidth
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => handleClose(false)} color="secondary">
+                            Cancel
+                        </Button>
+                        <Button onClick={() => handleClose(true)} color="primary">
+                            Submit
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+
+                <Typography id={"countTitle" + props.compCount}>
+                    {countTitle}
+                </Typography>
+                <Typography id={"countNum" + props.compCount}>
+                    {count}
+                </Typography>
+
                 <ButtonGroup
                     orientation="vertical"
                     color="primary"
@@ -90,7 +138,6 @@ export default function CountData(props) {
                 >
                     <Button onClick={() => setCount(count + 1)}>+</Button>
                     <Button onClick={() => setCount(count - 1)}>-</Button>
-                    <Button onClick={() => sendData()}>Test</Button>
                 </ButtonGroup>
             </Grid>
             <>
@@ -104,3 +151,27 @@ export default function CountData(props) {
         </Paper>
     );
 }
+
+
+// Deprecated land
+/*
+<InputBase
+    required
+    className={classes.input}
+    id={"countTitle" + props.count}
+    fullWidth="true"
+    value={countTitleString}
+    onChange={(event) => updateCountString(event.target.value)}
+    inputProps={{ "aria-label": "naked" }}
+    />
+*/
+
+/*
+<InputBase
+    className={classes.countInput}
+    id={"countNum" + props.count}
+    value={count}
+    onChange={(event) => updateCount(event.target.value)}
+    inputProps={{ "aria-label": "naked" }}
+/>
+*/

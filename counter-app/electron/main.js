@@ -46,8 +46,6 @@ ipcMain.on('form-submission', function (event, gameName, gameCounts, index) {
 
   // store.openInEditor();
   // checkStore();
-
-
 });
 
 app.whenReady().then(createWindow);

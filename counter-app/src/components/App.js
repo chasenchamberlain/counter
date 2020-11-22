@@ -1,4 +1,4 @@
-import { React, useState, Fragment } from "react";
+import { React, useState, Fragment, useEffect } from "react";
 import ReactDOM from "react-dom";
 import "fontsource-roboto";
 import Grid from "@material-ui/core/Grid";
@@ -10,6 +10,8 @@ import CountData from "./CountData";
 import Container from "@material-ui/core/Container";
 import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
+
+const { ipcRenderer } = window.require("electron");
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,31 +30,42 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SimplePaper() {
   const classes = useStyles();
+  const [componentCount, setComponentCount] = useState(0);
   const [count, setCount] = useState(0);
+  const [countTile, setCountTitle] = useState("");
+  const [gameTitle, setGameTitle] = useState("");
   let hideMe = true;
 
+  useEffect(() => {
+    sendData();
+  }, [count, countTile, gameTitle])
+
+  function sendData() {
+    ipcRenderer.send('form-submission', countTile, count, gameTitle);
+  }
+
   function minusCount() {
-    setCount(count - 1);
+    setComponentCount(componentCount - 1);
   }
 
   function createComponents() {
     var compArray = [];
-    for (var i = 1; i <= count; i++) {
-      compArray.push(<CountData minusCount={minusCount} hideMe={hideMe} count={i} key={i} />)
+    for (var i = 1; i <= componentCount; i++) {
+      compArray.push(<CountData minusCount={minusCount} sendCount={setCount} sendCountTitle={setCountTitle} hideMe={hideMe} compCount={i} key={i} />)
     }
     return compArray;
   }
 
   return (
     <>
-      <GameTitle />
+      <GameTitle sendGameTitle={setGameTitle} />
       <Divider />
       <>
-        <CountData count={0} key={0} />
+        <CountData sendCount={setCount} sendCountTitle={setCountTitle} count={0} key={0} />
         {/* {Array(count).fill(<CountData minusCount={minusCount} hideMe count={count} />)} */}
         {createComponents()}
       </>
-      <Button variant="outlined" onClick={() => setCount(count + 1)}>
+      <Button variant="outlined" onClick={() => setComponentCount(componentCount + 1)}>
         add new count
       </Button>
     </>
