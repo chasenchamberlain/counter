@@ -4,8 +4,17 @@ const path = require('path');
 const fs = require('fs');
 const Store = require('electron-store');
 
+// const schema = {
+//   games: {
+//     type: 'array'
+//   }
+// };
+
 const schema = {
-  games: {
+  gameTitle: {
+    type: 'string'
+  },
+  counts: {
     type: 'array'
   }
 };
@@ -15,8 +24,9 @@ var storeData = [];
 // console.log(app.getPath('userData'));
 // console.log(store.size);
 // store.reset();
-// var testArray = [{name: "sm64", count: 0}, {name: "wow", count: 666}, ];
-
+var testDict = new Map();
+testDict.set({ 'gameTitle': 'sm64' }, [{ 'countName': 'wins', 'countNum': 0 }])
+console.log(testDict.size);
 // store.set(testArray);
 // console.log(store.size);
 store.clear();
@@ -34,9 +44,9 @@ function createWindow() {
 }
 
 ipcMain.on('form-submission', function (event, gameName, gameCounts, index) {
-  console.log("this is the gameName from the form ->", gameName)
-  console.log("this is the counts from the form ->", gameCounts)
-  console.log("index ->", index)
+  // console.log("this is the gameName from the form ->", gameName)
+  // console.log("this is the counts from the form ->", gameCounts)
+  // console.log("index ->", index)
 
   // storeData = [{ name: gameName, counts: gameCounts }];
   // store.set(storeData);

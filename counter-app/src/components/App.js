@@ -10,6 +10,9 @@ import CountData from "./CountData";
 import Container from "@material-ui/core/Container";
 import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 const { ipcRenderer } = window.require("electron");
 
@@ -34,6 +37,7 @@ export default function SimplePaper() {
   const [count, setCount] = useState(0);
   const [countTile, setCountTitle] = useState("");
   const [gameTitle, setGameTitle] = useState("");
+  const [open, setOpen] = useState(false);
   let hideMe = true;
 
   useEffect(() => {
@@ -56,9 +60,18 @@ export default function SimplePaper() {
     return compArray;
   }
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
   return (
     <>
       <GameTitle sendGameTitle={setGameTitle} />
+      <Button onClick={handleOpen}>Change Game</Button>
       <Divider />
       <>
         <CountData sendCount={setCount} sendCountTitle={setCountTitle} count={0} key={0} />
