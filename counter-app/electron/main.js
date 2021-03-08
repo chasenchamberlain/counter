@@ -43,10 +43,10 @@ function createWindow() {
   // win.webContents.openDevTools()
 }
 
-ipcMain.on('form-submission', function (event, gameName, gameCounts, index) {
-  // console.log("this is the gameName from the form ->", gameName)
-  // console.log("this is the counts from the form ->", gameCounts)
-  // console.log("index ->", index)
+ipcMain.on('form-submission', function (event, gameName, countTitle, count) {
+  console.log("this is the gameName from the form ->", gameName)
+  console.log("this is the count from the form ->", count)
+  console.log("Count title is ->", countTitle)
 
   // storeData = [{ name: gameName, counts: gameCounts }];
   // store.set(storeData);

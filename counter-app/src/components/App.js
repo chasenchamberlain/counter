@@ -45,7 +45,7 @@ export default function SimplePaper() {
   }, [count, countTile, gameTitle])
 
   function sendData() {
-    ipcRenderer.send('form-submission', countTile, count, gameTitle);
+    ipcRenderer.send('form-submission', gameTitle, countTile, count);
   }
 
   function minusCount() {

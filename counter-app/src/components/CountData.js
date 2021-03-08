@@ -71,7 +71,7 @@ export default function CountData(props) {
     };
 
     const getCountFromDialog = (countFromDialog) => {
-        (countFromDialog === "") ? setCountDialog(0) : setCountDialog(parseInt(countFromDialog));
+        (countFromDialog === "") ? setCountDialog(count) : setCountDialog(parseInt(countFromDialog));
     }
 
     const getCountTitleFromDialog = (countTitleFromDialog) => {
