@@ -4,30 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const Store = require('electron-store');
 
-// const schema = {
-//   games: {
-//     type: 'array'
-//   }
-// };
-
-const schema = {
-  gameTitle: {
-    type: 'string'
-  },
-  counts: {
-    type: 'array'
-  }
-};
-
 const store = new Store();
-// console.log(store.size);
-// store.reset();
-var testDict = new Map();
-// testDict.set({ 'gameTitle': 'sm64' }, [{ 'countName': 'wins', 'countNum': 0 }])
-// testDict.set({'sm64':[{'wins':6},{'deaths':8}]})
-// store.set(testArray);
-// console.log(store.size);
-// store.clear();
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -43,12 +20,11 @@ function createWindow() {
 
 ipcMain.on('form-submission', function (event, gameName, countTitle, count) {
   console.log("this is the gameName from the form ->", gameName)
-  console.log("this is the count from the form ->", count)
   console.log("Count title is ->", countTitle)
+  console.log("this is the count from the form ->", count)
   console.log(app.getPath('userData'));
 
   if (gameName !== 'Game Title' && gameName.replace(/\s/g, '') !== '') {
-    // testDict.set(gameName, [{ [countTitle]: count }]);
     store.set(gameName, [{ [countTitle]: count }])
     console.log(store.size)
   }
